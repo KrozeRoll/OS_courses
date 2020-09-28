@@ -1,0 +1,2 @@
+#!/bin/bash
+sort -n -t ':' -k 3 "/etc/passwd" | cut -d ':' -f '1 3'
