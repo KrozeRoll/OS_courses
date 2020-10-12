@@ -1,0 +1,9 @@
+#!/bin/bash
+for pid in $(ps a --format="pid" | tail -n +2) 
+do
+	if [ -e /proc/$pid ] 
+	then
+		echo -n -e "$pid " 
+		cat /proc/$pid/statm | awk '{print $1}' 
+	fi
+done | sort -nk 2 | tail -n 1 | awk '{print "PID="$1}'

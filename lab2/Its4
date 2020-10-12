@@ -1,0 +1,15 @@
+#!/bin/bash
+for pid in $(ps a --format="pid" | tail -n +2) 
+do
+	if [ -e /proc/$pid ] 
+	then
+		echo -n -e "$pid " 
+		cat /proc/$pid/status | awk '{if ($1 == "PPid:") print $2}' | tr '\n' ' ' 
+		cat /proc/$pid/sched | awk '
+			BEGIN {sum = 0; switches = 1}
+			{if ($1 == "se.sum_exec_runtime") sum = $3;
+			 if ($1 == "nr_switches") switches = $3}
+			END {print sum/switches}' 
+	fi
+done | sort -nk 2 | awk '{print "ProcessID="$1" : Parent_ProcessID="$2" : Average_Time="$3}' > Its4_ans
+

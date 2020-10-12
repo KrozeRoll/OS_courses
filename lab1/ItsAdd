@@ -1,0 +1,11 @@
+#!/bin/bash
+if [[ "$#" -gt 10 ]]
+	then echo "Wrong number of arguments" 
+			exit 1
+fi
+let num=1
+for i in $* 
+	do
+		echo "Parameter $num = $i"
+		let num+=1
+	done

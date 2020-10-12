@@ -1,0 +1,4 @@
+#!/bin/bash
+let cnt=$(ps u | wc -l)-1
+echo $cnt
+ps u | tail -n +2 | awk 'BEGIN{FNR = 2}{print $2 ":" $11}' 

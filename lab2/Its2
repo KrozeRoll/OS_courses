@@ -1,0 +1,3 @@
+#!/bin/bash
+ps x a | awk '{if (match($5, "/sbin/") != 0) print $1}' 
+ 
