@@ -11,10 +11,6 @@ while true; do
 		"*")
 			operation="*"
 			;;
-		/[0-9]+/)
-			let ans=ans"$operation""$LINE"
-			echo "$ans"
-			;;
 		"QUIT")
 			echo "Answer = $ans"
 			echo "Work done"
@@ -22,10 +18,14 @@ while true; do
 			kill $(cat .pid)
 			exit 0
 			;;
-		*)
+		''|*[!0-9]*)
 			echo "Wrong line"
 			kill $(cat .pid)
 			exit 1
+			;;
+		*)
+			let ans=ans"$operation""$LINE"
+			echo "$ans"
 			;;
 	esac
 	sleep 1s
