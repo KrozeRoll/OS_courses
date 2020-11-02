@@ -1,0 +1,6 @@
+#!/bin/bash
+at -f ./Its4_1 now
+at -f ./Its4_2 now
+at -f ./Its4_3 now
+
+kill -e Its4_3

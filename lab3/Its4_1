@@ -1,0 +1,5 @@
+#!/bin/bash
+while true; do
+	let a=5678*3450
+done
+	

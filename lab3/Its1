@@ -1,0 +1,8 @@
+#!/bin/bash
+start=$(date +"%F_%T")
+mkdir ~/test 2> /dev/null && { 
+	echo "catalog test was created successfully" > ~/report
+	> ~/test/$start
+	}	
+	
+ping www.net_nikogo.ru 2> /dev/null || echo $(date +"%F_%T")_host_not_exist >> ~/report

@@ -11,7 +11,7 @@ do
 	fi
 done >> Its7_tmp
 
-sleep 1m
+sleep 15s
 
 for str in $(cat Its7_tmp | tail -n +2) 
 do

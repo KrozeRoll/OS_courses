@@ -1,0 +1,4 @@
+#!/bin/bash
+at -f ./Its1 now
+at -f ./Its1 now +2 min
+tail -f ~/report
