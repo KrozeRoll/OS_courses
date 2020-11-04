@@ -1,2 +1,2 @@
-crontab -e
-5 * * * 1 ./Its1
+#!/bin/bash
+echo '5 * * * 1 ~/Osikov/OS_courses/lab3/Its1' | crontab -

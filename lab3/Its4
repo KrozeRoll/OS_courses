@@ -1,6 +1,14 @@
 #!/bin/bash
-at -f ./Its4_1 now
-at -f ./Its4_2 now
-at -f ./Its4_3 now
+./Its4_1 &
+./Its4_2 &
+./Its4_3 &
 
-kill -e Its4_3
+pid1=$(pgrep Its4_1)
+pid3=$(pgrep Its4_3)
+
+kill $pid3
+cpulimit --pid $pid1 --limit 10
+
+
+
+
