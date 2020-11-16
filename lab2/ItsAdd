@@ -1,0 +1,10 @@
+#!/bin/bash
+read pid
+while [[ "$pid" -ne 0 ]] 
+do
+	echo -n "$pid -> "
+	pid=$(ps -f $pid | awk '{ print $3 }' | tail -n 1)
+	
+done 
+echo "0"
+
