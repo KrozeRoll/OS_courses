@@ -1,0 +1,37 @@
+#!/bin/bash
+if [[ $# -ne 1 ]]; then 
+	echo "Wrong number of arguments" 
+	exit 1
+fi
+file_name="$1"
+
+grep "/$file_name" ~/.trash.log | while read line; do
+	file_path=$(cut -d " " -f 1 <<< "$line")
+	echo "$file_path";
+	echo "Is it correct file? [y/N]"
+	read ans < /dev/tty
+	
+	if [[ "$ans" =~ [Yy] ]]; then
+		directory=${file_path%\/*}
+		if ! [[ -d "$directory" ]]; then
+			echo "$file_name will be at $HOME"
+			directory=$HOME
+		fi
+		link_name=$(cut -d " " -f 2 <<< "$line")
+		if ! [[ -f $HOME/.trash/$link_name ]]; then
+			echo "File has already been recovered"
+			exit 2
+		fi
+		while [[ -f "$directory/$file_name" ]]; do
+			echo "Wrong name of file. Try another"
+			read file_name < /dev/tty
+		done
+		
+		ln "$HOME/.trash/$link_name" "$directory/$file_name"
+		rm "$HOME/.trash/$link_name"
+		exit 0
+	fi
+done
+
+
+

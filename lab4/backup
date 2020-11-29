@@ -1,0 +1,37 @@
+#!/bin/bash
+cur_date=$(date +%Y-%m-%d)
+
+find $HOME -maxdepth 1 -type d -name "Backup*" | 
+while read b_dir; do
+	b_date=${b_dir#*-}
+	let between=($(date -d "$cur_date" +%s) - $(date -d "$b_date" +%s)) / 86400
+	if [[ "$between" -le 7 ]]; then
+		for file in $(ls ~/sourse); do
+			if [[ -e "$b_dir/$file" ]]; then
+				b_size="$(du -s -b $bdir/$file | cut -f 1)"
+				c_size="$(du -s -b $HOME/sourse/$file | cut -f 1)"
+				if [[ $b_size -ne $c_size ]]; then
+					mv "$b_dir/$file" "$b_dir/$file-$cur_date"
+					cp -r "$HOME/sourse/$file" "$b_dir/$file"
+					echo "$HOME/sourse/$file was copied, $b_dir/$file-$cur_date renamed"
+				fi
+			else 
+				cp -r "$HOME/sourse/$file" "$b_dir/$file"
+				echo "$HOME/sourse/$file was copied"
+			fi
+		done
+		echo "chlen"
+		exit 0
+	fi
+done
+
+echo $?
+b_dir="$HOME/Backup-$cur_date"
+mkdir "$b_dir"
+echo "$b_dir was created" >> "$HOME/backup-report"
+
+for file in $(ls ~/sourse); do
+	cp -r "$HOME/sourse/$file" "$b_dir/$file"
+	echo "$HOME/sourse/$file was copied"
+done
+
