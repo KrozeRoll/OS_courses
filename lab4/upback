@@ -1,1 +1,27 @@
 #!/bin/bash
+cur_date=$(date +%Y-%m-%d)
+
+if [[ -e "$HOME/restore" ]]; then
+	rm -r "$HOME/restore"
+fi
+mkdir $HOME/restore
+
+
+find $HOME -maxdepth 1 -type d -name "Backup*" | 
+while read b_dir; do
+	b_date=${b_dir#*-}
+	let d1=$(date -d "$cur_date" +%s)
+	let d2=$(date -d "$b_date" +%s)
+	
+	let between=($d1-$d2)/86400 
+	if [[ "$between" -le 7 ]]; then
+		for file in $(ls "$b_dir"); do
+			reg=".*-[0-9]{4}-[0-9]{2}-[0-9]{2}"
+			if ! [[ "$file" =~ $reg ]] ; then
+				cp -r "$b_dir/$file" "$HOME/restore/$file"
+			fi
+		done
+		exit 0
+	fi
+done
+
