@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cat topInfo.log | grep "MiB Mem" | awk '{print $4, $6, $8}' | sed 's/\./,/g' > memInfo.log
+cat topInfo.log | grep "MiB Swap" | awk '{print $3, $5, $7}' | sed 's/\./,/g' > swapInfo.log
+cat topInfo.log | grep "mem.bash" | awk '{print $10}' | sed 's/\./,/g' > procInfo.log
+cat topInfo.log | grep "mem2.bash" | awk '{print $10}' | sed 's/\./,/g' > proc2Info.log
