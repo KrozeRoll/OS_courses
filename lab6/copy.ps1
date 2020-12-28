@@ -1,0 +1,1 @@
+xcopy /z /y "C:\Windows\test.pdf" "\\LAPTOP-CBTMGDO3\c$\temp\"

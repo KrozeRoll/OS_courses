@@ -1,2 +1,20 @@
 1.
 hostname
+
+2.
+xcopy /z /y "C:\Windows\test.pdf" "\\LAPTOP-CBTMGDO3\c$\temp\"
+
+3.
+schtasks /create /sc MINUTE /tn copyAtNet /tr "powershell.exe D:\OS\OS_courses\lab6\copy.ps1"
+
+4.
+if ( Get-process -Name "xcopy" ) { Stop-Process -Name "xcopy" }
+
+5.
+Compare-Object -ReferenceObject (Get-Content -Path "C:\Windows\test.pdf") -DifferenceObject (Get-Content -Path "\\LAPTOP-CBTMGDO3\c$\temp\test.pdf")
+
+6.
+xcopy /z /y "C:\Windows\test.pdf" "\\LAPTOP-CBTMGDO3\c$\temp\"
+
+
+

@@ -1,0 +1,16 @@
+1.
+Get-Service > list.txt
+
+2.
+2.1. 
+net stop dnscache
+2.2. 
+Start-Sleep -Seconds 1
+Get-Service > newList.txt
+2.3
+Compare-Object (Get-Content list.txt) (Get-Content newList.txt) > diff.txt
+2.4
+net start dnscache
+
+	
+
